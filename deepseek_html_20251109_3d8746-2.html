@@ -1,0 +1,1866 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>租赁业务高频问题答疑手册</title>
+    <style>
+        :root {
+            --deepseek-blue: #1E3A8A;
+            --deepseek-light-blue: #3B82F6;
+            --deepseek-lighter-blue: #60A5FA;
+            --deepseek-bg: #EFF6FF;
+            --text-dark: #1F2937;
+            --text-light: #6B7280;
+            --white: #FFFFFF;
+            --shadow: rgba(0, 0, 0, 0.1);
+        }
+        
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', 'Microsoft YaHei', sans-serif;
+        }
+        
+        body {
+            background-color: var(--deepseek-bg);
+            color: var(--text-dark);
+            line-height: 1.6;
+        }
+        
+        .container {
+            display: flex;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+        
+        /* 侧边导航栏 */
+        .sidebar {
+            width: 280px;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--shadow);
+            padding: 20px;
+            margin-right: 20px;
+            position: sticky;
+            top: 20px;
+            max-height: calc(100vh - 40px);
+            overflow-y: auto;
+        }
+        
+        .sidebar h2 {
+            color: var(--deepseek-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 2px solid var(--deepseek-lighter-blue);
+        }
+        
+        .nav-list {
+            list-style: none;
+        }
+        
+        .nav-item {
+            margin-bottom: 8px;
+        }
+        
+        .nav-link {
+            display: block;
+            padding: 10px 15px;
+            color: var(--text-dark);
+            text-decoration: none;
+            border-radius: 6px;
+            transition: all 0.3s ease;
+        }
+        
+        .nav-link:hover {
+            background-color: var(--deepseek-lighter-blue);
+            color: var(--white);
+        }
+        
+        .nav-link.active {
+            background-color: var(--deepseek-blue);
+            color: var(--white);
+        }
+        
+        /* 主内容区 */
+        .main-content {
+            flex: 1;
+            background-color: var(--white);
+            border-radius: 10px;
+            box-shadow: 0 4px 12px var(--shadow);
+            padding: 30px;
+        }
+        
+        .main-content h1 {
+            color: var(--deepseek-blue);
+            margin-bottom: 20px;
+            padding-bottom: 15px;
+            border-bottom: 2px solid var(--deepseek-lighter-blue);
+        }
+        
+        .section {
+            margin-bottom: 40px;
+        }
+        
+        .section-title {
+            color: var(--deepseek-blue);
+            margin-bottom: 20px;
+            padding-bottom: 10px;
+            border-bottom: 1px solid var(--deepseek-lighter-blue);
+        }
+        
+        .question {
+            margin-bottom: 20px;
+            border: 1px solid #E5E7EB;
+            border-radius: 8px;
+            overflow: hidden;
+        }
+        
+        .question-header {
+            background-color: var(--deepseek-lighter-blue);
+            padding: 15px 20px;
+            cursor: pointer;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: background-color 0.3s ease;
+        }
+        
+        .question-header:hover {
+            background-color: var(--deepseek-light-blue);
+        }
+        
+        .question-title {
+            font-weight: 600;
+            color: var(--white);
+        }
+        
+        .toggle-icon {
+            color: var(--white);
+            font-weight: bold;
+            transition: transform 0.3s ease;
+        }
+        
+        .question.active .toggle-icon {
+            transform: rotate(180deg);
+        }
+        
+        .answer {
+            padding: 20px;
+            display: none;
+        }
+        
+        .answer.active {
+            display: block;
+        }
+        
+        .answer p {
+            margin-bottom: 15px;
+        }
+        
+        .answer ul, .answer ol {
+            margin-bottom: 15px;
+            padding-left: 20px;
+        }
+        
+        .answer li {
+            margin-bottom: 8px;
+        }
+        
+        .risk-tip {
+            background-color: #FEF3C7;
+            border-left: 4px solid #F59E0B;
+            padding: 15px;
+            margin-top: 15px;
+            border-radius: 0 4px 4px 0;
+        }
+        
+        .risk-tip strong {
+            color: #92400E;
+        }
+        
+        .mark {
+            background-color: #FEF3C7;
+            padding: 2px 4px;
+            border-radius: 3px;
+        }
+        
+        .more-details {
+            margin-top: 15px;
+            display: none;
+        }
+        
+        .more-details.active {
+            display: block;
+        }
+        
+        .toggle-details {
+            background-color: var(--deepseek-blue);
+            color: white;
+            border: none;
+            padding: 8px 15px;
+            border-radius: 4px;
+            cursor: pointer;
+            margin-top: 10px;
+            transition: background-color 0.3s ease;
+        }
+        
+        .toggle-details:hover {
+            background-color: var(--deepseek-light-blue);
+        }
+        
+        /* 响应式设计 */
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+            }
+            
+            .sidebar {
+                width: 100%;
+                margin-right: 0;
+                margin-bottom: 20px;
+                position: static;
+            }
+            
+            .main-content {
+                padding: 20px;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- 侧边导航栏 -->
+        <div class="sidebar">
+            <h2>问题目录</h2>
+            <ul class="nav-list">
+                <li class="nav-item"><a href="#section1" class="nav-link active">一、合同成立与生效</a></li>
+                <li class="nav-item"><a href="#section2" class="nav-link">二、合同主体与标的物核查</a></li>
+                <li class="nav-item"><a href="#section3" class="nav-link">三、租赁相关费用的支付与收取</a></li>
+                <li class="nav-item"><a href="#section4" class="nav-link">四、房屋的装修与维修</a></li>
+                <li class="nav-item"><a href="#section5" class="nav-link">五、房屋的占有与使用</a></li>
+                <li class="nav-item"><a href="#section6" class="nav-link">六、房屋转租相关权责</a></li>
+                <li class="nav-item"><a href="#section7" class="nav-link">七、物业管理与服务</a></li>
+                <li class="nav-item"><a href="#section8" class="nav-link">八、租赁合同终止与解除</a></li>
+            </ul>
+        </div>
+        
+        <!-- 主内容区 -->
+        <div class="main-content">
+            <h1>租赁业务高频问题答疑手册</h1>
+            
+            <!-- 一、合同成立与生效 -->
+            <div id="section1" class="section">
+                <h2 class="section-title">一、合同成立与生效</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q1">
+                    <div class="question-header">
+                        <div class="question-title">Q1：签了租赁合同就一定能生效吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：不一定。签合同仅代表合同成立，成立≠生效，生效需满足法定（未违反强制性规定）或约定条件（如押金到账），不满足的可能不生效。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>成立与生效的区别</strong>：合同成立是"有没有合同"的事实判断，双方签字盖章后通常就成立；生效是"合同能不能产生法律效力"的法律判断，需满足额外条件。</li>
+                                <li><strong>常见不生效情形</strong>：
+                                    <ul>
+                                        <li>内容违法：违反法律、行政法规强制性规定，比如出租违法建筑的合同。</li>
+                                        <li>未达到生效条件：比如合同里写了"承租人交齐押金后本合同生效"，但承租人一直没交押金；</li>
+                                        <li>未到生效时间：比如合同约定"2025年12月1日起生效"，但还没到期。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>法律后果</strong>：成立但不生效，若一方有违背诚信原则的行为（假借订立合同，恶意进行磋商；故意隐瞒与订立合同有关的重要事实或者提供虚假情况等）给另一方造成损失的，则承担缔约过失责任（如赔偿对方准备签约的合理损失，如装修设计费用等）；生效后违约，承担违约责任（如支付违约金、赔偿租金损失）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：签合同前要确认租赁物合法（如有无工规证、是否为过期临建），合同中明确生效条件和生效时间，避免签了合同却无法约束对方。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q2">
+                    <div class="question-header">
+                        <div class="question-title">Q2：承租人没交租赁保证金，合同能生效吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：看合同约定。若明确约定"交保证金后生效"，没交则合同一般不生效；如果出租人虽未收到保证金，但已提前交房且双方按约履行，可能视为合同已生效。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>按约定判断</strong>：双方在合同中写明"承租人支付租赁保证金后，本合同生效"，属于附生效条件的合同。只要承租人没交保证金，条件未达成，合同不生效。</li>
+                                <li><strong>例外情况</strong>：若承租人没交保证金，但出租人主动交房让其使用，且从未以"没交保证金"为由提出异议，这种行为可能被认定为"用实际行动变更生效条件"，合同会被判定生效，出租人再以"没交保证金"为由拒履行义务（如修房子）或想随意收回房屋，可能构成违约。</li>
+                                <li><strong>其他后果</strong>：如果承租人欠租，出租人起诉要求支付租金时，法院一般不会支持"先补缴保证金再付租金"的主张，即保证金没有及时收可能就收不回来。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：若约定"交保证金生效"，承租人没交时，不要轻易交房；若已交房，需及时书面提醒承租人补交保证金并明确"不补交合同仍然未生效"，避免被认定为默认生效。另外，若第三人代付保证金，却缺乏承租人出具的书面代付款声明或证明文件予以追认的，将无法证明该笔代付押金对应的合同义务已履行，且会增加退还不当得利的风险，导致租赁合同缺乏有效担保。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q3">
+                    <div class="question-header">
+                        <div class="question-title">Q3：承租人签了合同却长期不交租赁保证金，该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：1.书面催告承租人缴纳租赁保证金；2.若未交房且承租人逾期仍不交保证金，可书面通知终止缔约，有损失的可主张赔偿；3.若已交房且双方已履约，诉讼中法院通常认定合同生效，可结合承租人违约情况及合同约定（如有）主张违约责任。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>书面催告</strong>：
+                                    <ul>
+                                        <li>书面催告：发催款函，明确要求承租人在合理期限内交保证金，说明逾期不交的后果（如将终止缔约、追究损失等）。留存催告证据（如快递底单需注明"保证金催交函"，微信/邮件催告要截图保存），避免口头催交后无凭证。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>合同未生效时的应对</strong>：
+                                    <ul>
+                                        <li>终止缔约：若承租人逾期仍不交，有权结合业务实际情况以书面形式告知承租人出租人行使以下权利：<span class="mark">终止租赁合同合作、不再交付房屋、将房屋另行出租等。</span></li>
+                                        <li>主张损失：如因承租人拖延导致出租人产生实际损失（比如为了租给该承租人，提前推掉了其他租客的订单，造成空置租金损失；或已为房屋做了定向装修，产生装修费用），可收集证据（如与其他租客的沟通记录、装修合同及付款凭证），要求承租人承担"缔约过失责任"，赔偿损失。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>已交房的注意事项</strong>：若出租人在承租人没交保证金的情况下已交房，合同通常会被认定为生效，此时不能再仅以"未交保证金"清退承租人，应根据合同约定、综合承租人违约情况，主张违约责任。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：全程保留书面沟通记录（如快递底单、微信/邮件截图），避免口头沟通后无证据；不要在没催交的情况下直接终止缔约，可能被认定为"单方违约"。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q4">
+                    <div class="question-header">
+                        <div class="question-title">Q4：哪些情况下，租赁合同会被认定为无效？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：常见有7种，比如出租违法建筑、租给无民事行为能力人（如未成年人、精神病人）、租期超过20年的部分等。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>常见无效情形</strong>：
+                                    <ul>
+                                        <li>主体不适格：承租人是无民事行为能力人（如不满8岁的未成年人、完全不能辨认自己行为的精神病人）；或承租人是限制民事行为能力人（如八周岁以上的未成年人）且未经法定代理人同意签的合同。</li>
+                                        <li>意思表示不真实：因虚假表示（如名为租赁实为利益输送）的合同。</li>
+                                        <li>租赁物违法：出租的房屋是违法建筑（如：没办建设工程规划许可证/未按照建设工程规划许可证规定建设的房子/未经批准或未按批准内容建设的临建/租期超过临时建筑的使用期限，超过部分无效）。</li>
+                                        <li>租期超20年：租赁合同约定的租期超过20年，超过部分无效。</li>
+                                        <li>恶意串通：双方故意串通，损害第三人利益，比如为了逃避执行而故意签署的租赁合同。</li>
+                                        <li>违背公序良俗：租赁房屋用于违法活动，如赌博、走私等。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>高频无效情形</strong>：司法实践中，"租赁物是违法建筑"是最常见的无效原因，很多出租人没意识到"没办规划手续的房子不能出租"。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：出租前务必确认房屋有合法手续（如不动产权证、规划许可证），避免因租赁物违法导致合同无效，还要核查承租人身份和实际租赁用途，防止因主体或用途问题无效。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q5">
+                    <div class="question-header">
+                        <div class="question-title">Q5：租赁合同被认定为无效，会有什么法律后果？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：1.互相返还财产（承租人还房子、出租人还押金和未用租金）；2.承租人要付房屋占有费；3.是按过错赔损失；4.装修装饰物视情况处理。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>返还财产</strong>：
+                                    <ul>
+                                        <li>承租人需将租赁房屋返还给出租人，返还时要符合"正常使用后的状态"，不能故意损坏（如砸坏墙面、拆走固定家具）。</li>
+                                        <li>出租人需返还已收的押金、承租人未实际使用期间的租金（如承租人交了3个月租金，只用了1个月合同就无效，需返还2个月租金）。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>折价补偿</strong>：承租人实际用了房屋，即使合同无效，也要按"参照合同约定的租金标准"支付房屋占有使用费，相当于"用了房子就要给钱"。</li>
+                                <li><strong>过错赔偿</strong>：双方按过错程度承担损失。比如出租人明知房屋是违法建筑还出租，承租人明知是违法建筑还承租，双方都有过错，各自承担自己的损失（如出租人承担房屋维修损失，承租人承担搬家损失）；若只有一方有过错（如出租人故意隐瞒违法事实），过错方要赔偿无过错方的损失（如承租人的搬家费、装修费）。</li>
+                                <li><strong>装饰装修处理</strong>：
+                                    <ul>
+                                        <li>未形成附合的（如可搬走的家具、空调）：出租人同意用的，可折价归出租人；不同意的，承租人可拆走，但拆的时候不能损坏房屋，损坏了要恢复原状。</li>
+                                        <li>已形成附合的装修（比如贴好的墙纸、装好的吊顶，拆了会损坏房子的）：如果出租人同意利用（就算出租人把房子重新租给别人、新租客继续用这些装修，也算同意用），折价归出租人；如果出租人不同意利用，就按双方的过错比例分担装修现在的价值损失（能协商按协商，无法协商一致，根据法院摇珠选定的评估机构、按法院确认的评估基准日评估损失）。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：作为出租人，如果合同有无效风险，建议提前书面告知承租人房屋产权情况，留存《消防验收合格证明》《房屋结构安全性检测报告》，并保存承租人的装修方案；尽量通过协商处理纠纷，避免起诉后被认定合同无效，承担更多损失。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 二、合同主体与标的物核查 -->
+            <div id="section2" class="section">
+                <h2 class="section-title">二、合同主体与标的物核查</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q6">
+                    <div class="question-header">
+                        <div class="question-title">Q1：怎么核实和填写承租人的身份信息？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：需填写自然人承租人真实姓名和身份证号，留存身份证复印件；需填写企业承租人全称和统一社会信用代码，留存法定代表人身份证复印件、营业执照复印件、被授权人信息等，并对企业资信情况进行必要核查。承租人拒绝提供身份证明的，不应出租。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>自然人承租人</strong>：
+                                    <ul>
+                                        <li>填写信息：合同中明确写清承租人的真实姓名、身份证号码，确保与身份证一致，避免"昵称""别名"；对于外籍人士，需填写与护照一致的姓名，同时应留存护照首页和有效签证页的复印件。</li>
+                                        <li>核查材料：要求承租人提供身份证/护照等证件原件核对，留存复印件（可在复印件上注明"仅用于房屋租赁使用"），防止用假身份证。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>企业承租人</strong>：
+                                    <ul>
+                                        <li>填写信息：写明、写全企业全称（与营业执照一致）、统一社会信用代码，以及法定代表人姓名、身份证号。</li>
+                                        <li>核查材料：收集营业执照、法定代表人身份证；若由授权代表签约，还需法定代表人身份证明书、授权委托书和被授权人身份证，所有材料留存复印件，并核对原件。</li>
+                                        <li>基础资信查询：登录"国家企业信用信息公示系统"等企业信息公示网站，查询企业是否有主体资格问题以及经营异常（如列入失信名单、被吊销执照、已注销、高额被执行案件等），避免租给有信用风险的企业。对于整租大宗交易客户或承租作特殊业态经营（如酒店、公寓、学校）的，还应核查其经营范围、所需资质、履约能力（如股东背景、实缴出资情况）等。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>通用要求</strong>：无论自然人还是企业，若承租人拒绝提供身份证明的，不应签约，防止后续无法追溯责任（如欠租后找不到人）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要仅凭口头告知填写身份信息，必须核对原件；企业承租人若变更法定代表人或授权代表，要及时更新材料。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q7">
+                    <div class="question-header">
+                        <div class="question-title">Q2：怎么核实和填写租赁房屋的信息？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：写明物业地址、面积（注明是建筑面积且包含公摊，还是仅套内面积）、规划用途，按不动产权证写；没不动产权证的，要书面告知承租人，还要写清装修和附属设施情况。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>核心信息填写</strong>：
+                                    <ul>
+                                        <li>物业地址：写详细到门牌号，与不动产权证保持一致，若拆分房源出租则应注明房屋编码为自定编号，避免模糊表述。</li>
+                                        <li>房屋面积：明确约定是"建筑面积（包括公共面积的分摊）"还是"仅套内使用面积"，标注具体数值及计量单位，若有公摊面积，其计算方式应与测绘报告保持一致，防止后续承租人以"实际承租面积与合同约定不符"要求出租人退还多收费用。</li>
+                                        <li>规划用途：严格按不动产权证上的"规划用途"填写（如"住宅""商业""办公"），不能随意更改（如把"住宅"写成"商业"），避免承租人违规改变用途（如住宅改商铺）。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>特殊情况处理</strong>：若房屋没有不动产权证或规划许可证，需书面告知承租人，例如：在合同中注明"本房屋暂未取得不动产权证书，出租方已如实告知承租方"；或要求承租人出具《权属状况知情函》，承诺自行承担装修改造损失风险，并让承租人签字确认，避免后续承租人主张"出租人隐瞒无证事实"。</li>
+                                <li><strong>装修与附属设施</strong>：交接清单中应列清房屋装修情况和附属设施。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要凭记忆填写房屋信息，必须对照不动产权证或备案材料；附属设施要逐项核对，避免遗漏。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q8">
+                    <div class="question-header">
+                        <div class="question-title">Q3：出租经营类场所（如商铺、餐厅等）前的注意逐项？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：明确禁止的行业（如高污染、违法业务），核查承租人的经营证照（如餐饮要食品经营许可证），确保证照在租期内有效。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>明确禁止经营的范围</strong>：在合同中列明禁止承租人从事的行业或活动，比如：
+                                    <ul>
+                                        <li>产生强噪音、强异味、高污染的（如五金加工、喷漆、养殖场）。</li>
+                                        <li>违法或违背公序良俗的（如赌博、走私、非法放贷、无证培训）。避免因承租人违规经营导致出租人被牵连（如被行政罚款等）。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>核查经营证照</strong>：
+                                    <ul>
+                                        <li>要求承租人提供经营特定业务所需的全部合法证照原件核对，比如餐饮要出示《食品经营许可证》，中小学校外培训机构需出示《民办学校办学许可证》和《营业执照》（或《民办非企业单位登记证书》），酒店、宾馆、招待所、度假村等旅馆业经营者需初始《特种行业许可证》，并留存复印件。</li>
+                                        <li>确认证照的有效期，要求承租人在整个租期内保持证照有效，若证照到期需续期，要及时提供新的证照复印件，防止因承租人无证经营被主管部门查处，影响出租人。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要轻信承租人"后续会办证照"的口头承诺，必须在签约前或明确约定的时间内要求承租人取得并出示有效证照；定期核查承租人的经营情况，发现违规经营及时制止，避免承担连带责任。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q9">
+                    <div class="question-header">
+                        <div class="question-title">Q4：常见的出租人风险较高的房屋类型有哪些？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：违法建筑、不符合安全标准、违规改用途的房子不能出租，出租后合同可能无效，还可能被行政罚款。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>各种风险较高的房屋类型</strong>：
+                                    <ul>
+                                        <li>违法建筑：无建设用地规划许可证的房屋为违法建筑。</li>
+                                        <li>不符合安全、防灾标准：比如房屋结构不安全（如承重墙被拆、未通过结构安全性检测）、消防设施不全、不符合抗震抗灾要求，无法保障承租人安全的。</li>
+                                        <li>违规改变用途：未经审批，将"工业厂房"改成"住宅"出租，或把"住宅"改成"商业场所"出租，违反规划用途的。</li>
+                                        <li>法律规定的其他情形：如被司法机关查封、冻结的房子，无法正常交付使用的。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>出租的风险</strong>：
+                                    <ul>
+                                        <li>合同无效：对于违法建筑，即使签了租赁合同，也可能被法院认定为无效，承租人可能拒付租金，还能要求返还已交租金和押金。</li>
+                                        <li>行政责任：主管部门（如住建部门、消防部门）可能责令停止出租，并处以罚款。</li>
+                                        <li>赔偿责任：若因房屋不安全导致承租人受伤（如房屋倒塌砸伤承租人），出租人要承担赔偿责任。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：出租前务必核查房屋的合法手续和安全状况，不要抱有"没人查"的侥幸心理；若房屋有轻微违规（如小面积加建），建议先办齐手续再出租，或仅明确合法面积，避免后续纠纷，同时任何情况下均应告知承租人相关情况。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q10">
+                    <div class="question-header">
+                        <div class="question-title">Q5：出租有夹层的房子，会有什么法律后果？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：可能导致合同整体无效或部分无效，取决于夹层是否违法、占比大小。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>常见法律后果</strong>：
+                                    <ul>
+                                        <li>整体无效：若夹层是违法加建（没办手续），且改变了房屋整体结构和承重，或违法面积占比大，法院可能认定整个租赁合同无效。</li>
+                                        <li>部分无效：若夹层违法面积小，且能与合法部分分割（如夹层是独立房间，不影响主体结构），法院可能认定"合法部分的租赁关系有效，夹层部分无效"，按合法面积计算租金。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>风险防范建议</strong>：
+                                    <ul>
+                                        <li>分开签约：若房屋有合法部分和未办手续的夹层，建议针对两部分分别签租赁合同，明确各自的面积、租金单价、总价，避免因夹层问题影响合法部分的合同效力。</li>
+                                        <li>提前告知：合同中写明现状出租，并留存房屋现状图片，留痕告知承租人房屋包含夹层，该夹层暂未取得建设工程规划许可证，减少后续"隐瞒事实"的纠纷。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要隐瞒夹层的违法情况，否则承租人可能以"欺诈"为由主张合同无效并要求赔偿；加建夹层前最好先办审批手续，提高合法性后再出租。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q6 -->
+                <div class="question" id="q11">
+                    <div class="question-header">
+                        <div class="question-title">Q6：出租没经过消防验收的房子，会有什么后果？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：可能导致承租人要求解除合同、赔偿损失，还可能被行政罚款，具体要看房子是不是必须消防验收、有没有影响使用。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>常见后果</strong>：
+                                    <ul>
+                                        <li>合同纠纷：若房子是"依法应当消防验收的建设工程"（如特定商场、酒店），没验收导致承租人无法使用（如商场不能开业），承租人将主张解除合同，并赔偿搬家费、预期利润损失。</li>
+                                        <li>行政罚款：依法应当消防验收的房子，没验收或验收不合格就出租，住建局、消防救援机构可能责令停止使用，并处罚款。</li>
+                                        <li>民事赔偿：若因没消防验收导致火灾等事故，造成承租人人身或财产损失，出租人要承担赔偿责任。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>特殊情况</strong>：若房子不是"必须消防验收的类型"，没验收一般不直接导致合同无效，但承租人若能证明"没验收影响正常使用"（如消防设施不全不敢入驻），仍可要求整改或解除合同。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：出租前先确认房屋是否需要消防验收（可咨询当地消防部门），需要验收的务必先通过验收再出租；若已出租但没验收，尽快补做验收，避免被承租人追责。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 三、租赁相关费用的支付与收取 -->
+            <div id="section3" class="section">
+                <h2 class="section-title">三、租赁相关费用的支付与收取</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q12">
+                    <div class="question-header">
+                        <div class="question-title">Q1：出租人能全额没收租赁保证金吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：看合同约定和违约程度。合同明确约定"可没收的违约情形"且承租人满足相关条件（如擅自转租、欠租超期），可以没收；轻微违约或保证金过高，则诉讼中可能被法院认定为违约金过高并调减可没收金额。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>可全额没收的情况</strong>：
+                                    <ul>
+                                        <li>合同有明确约定：比如合同明确约定"承租人未经同意擅自转租、拖欠租金累计超过30天、损坏房屋主体结构的，出租人有权全额没收租赁保证金"。</li>
+                                        <li>承租人的违约行为符合约定情形：比如承租人确实擅自转租，或欠租超过30天的，出租人可依约全额没收。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>可能无法全额没收的情况</strong>：
+                                    <ul>
+                                        <li>轻微违约：比如承租人延迟1天交租，或轻微损坏设施等，因未达到合同约定的"没收保证金"条件，不能全额没收，但可根据合同约定要求承租人赔偿维修费用或支付违约金。</li>
+                                        <li>保证金过高：若保证金金额远超过出租人实际损失，承租人可要求法院或仲裁机构减少没收金额，法院可能会按"损失+30%"的标准调整总赔偿数额。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：合同中要明确"哪些违约情形可没收保证金"，避免模糊表述（如"承租人违约可没收保证金"）；没收保证金前，书面告知承租人违约事实和没收依据，留存证据，避免后续承租人主张出租人"单方擅自没收"。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q13">
+                    <div class="question-header">
+                        <div class="question-title">Q2：能同时没收租赁保证金和收违约金吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：合同约定了就可以按约定来，但如果两者加起来远超实际损失，法院可能会调整，不会都支持。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>合同约定优先</strong>：若租赁合同中同时约定"承租人违约，出租人有权没收租赁保证金，且承租人需支付违约金"，双方可先按合同执行，承租人需同时承担这两项责任。</li>
+                                <li><strong>法院调整规则</strong>：若承租人认为"没收的保证金+违约金"过分高于实际损失（如实际损失是1万元，两者加起来是5万元），可向法院申请调整。法院会以"实际损失"为核心，结合合同履行情况、双方过错程度判断：
+                                    <ul>
+                                        <li>若两者之和未超损失的130%，可能同时支持。</li>
+                                        <li>若远超损失（如远超130%），可能只支持其中一项（如用保证金抵扣损失，不再支持违约金），或减少违约金金额。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：出租人追责时，建议收集实际损失的证据（如维修发票、租金损失证明、清理费用凭证等），证明两者之和合理。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q14">
+                    <div class="question-header">
+                        <div class="question-title">Q3：非住宅物业（如商铺、写字楼）的物业费用有上限吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：没有全国统一的绝对上限，主要看双方协商，但要符合"合理、公开"原则，部分地方有指导价，还要明码标价。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>费用定价规则</strong>：
+                                    <ul>
+                                        <li>无绝对上限：非住宅物业费用（如物业费、租金）受市场供需、地段、配套影响，比如市中心商铺的租金和物业费通常比郊区高，没有全国统一的"最高限额"。</li>
+                                        <li>地方指导价：部分城市可能会针对非住宅物业制定指导价，但这不是强制上限，双方可根据服务内容（如是否有24小时安保、保洁）协商高于指导价的费用。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>核心要求</strong>：
+                                    <ul>
+                                        <li>合理公开：费用要合理，不能明显高于同地段、同类型物业的水平；收费方要明码标价，公示收费项目（如物业费包含保洁、安保、维修）、标准和服务内容。</li>
+                                        <li>合同约定：所有费用（租金、物业费、水电费）都要在合同中明确写清金额、支付方式和时间，避免后续临时加价。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：可调研同地段物业的费用水平并结合自身服务内容作出定价依据；留底费用明细，防止承租人以"费用不透明"为由拖欠。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q15">
+                    <div class="question-header">
+                        <div class="question-title">Q4：出租人有权按照什么标准收取房屋占用费？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：合同无效时，按合同约定的租金算；合同到期或解除后承租人不搬走，没约定的通常按租金算，有约定的可以按照约定的占用费标准执行。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>不同场景的标准</strong>：
+                                    <ul>
+                                        <li>合同无效时：根据法律规定，出租人可要求承租人按"参照合同约定的租金标准"支付占有费，法院一般会支持，比如合同约定租金5000元/月，占有费通常也按5000元/月算。</li>
+                                        <li>合同到期/解除后承租人拒搬：
+                                            <ul>
+                                                <li>没约定的：实践中通常按原合同租金标准算占有费，少数情况会按市场租金（若市场租金与合同租金差异大）。</li>
+                                                <li>有约定的：若合同约定"承租人逾期不搬，按双倍租金支付占有费"，法院可能支持，也可能根据公平原则调整占有费标准（如按1.3倍租金算），具体看承租人的过错程度和实际损失。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>注意事项</strong>：占有费的起算时间从"合同到期/解除之日"或"承租人应腾退之日"开始，到"实际腾退之日"结束，出租人要留存"要求承租人腾退"的证据（如书面通知），确定起算时间。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：合同中可约定占有费的计算标准，但不要约定过高，避免被法院调低；主张占有费时，要提供承租人"逾期不搬"的证据（如限期搬离通知函、逾期占用情况的影像证据等），以应对承租人抗辩。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q16">
+                    <div class="question-header">
+                        <div class="question-title">Q5：逾期付款违约金有上限吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：没有绝对上限，但不能远超实际损失，通常应付违约金总和不超过损失的30%；承租人恶意违约的话，法院可能不支持减少违约金。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>上限规则</strong>：
+                                    <ul>
+                                        <li>相对限制：司法实践中，逾期付款违约金（如承租人欠租的违约金）以"实际损失"为基础，约定的违约金超过损失的30%，通常会被认定为"过分高于损失"，承租人可请求法院减少。比如实际损失是1000元（欠租1万元产生的利息损失），违约金约定3000元，法院可能会降到1300元（1000元+300元）。</li>
+                                        <li>恶意违约例外：若承租人是恶意违约（如故意欠租不付，经多次催告仍不付），即使违约金略高，法院也可能不支持减少，或减少幅度很小。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>实际损失的认定</strong>：逾期付款的实际损失通常是"资金占用利息"（按LPR计算），若有其他损失，可提供证据要求一并计入损失。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：合同中约定违约金时，应明确计算方式，例如"按逾期金额的每日【 】‰支付违约金"；主张违约金时，要提供实际损失的证据，增强说服力。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q6 -->
+                <div class="question" id="q17">
+                    <div class="question-header">
+                        <div class="question-title">Q6：出租人催告承租人交费时，有哪些注意事项？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：优先书面催告，写清费用金额、支付期限和逾期后果，确保送达并留存证据，不能暴力催收。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>核心注意事项</strong>：
+                                    <ul>
+                                        <li>形式合法：使用《园区租赁业务管理指引》附件中《费用催缴函》模板，也可采用微信、邮件、短信等文字形式，避免口头催告（无证据）。若催告后承租人仍不支付，可根据实际情况委托律师发送《律师函》（非必要流程，不能替代付款通知）。</li>
+                                        <li>内容明确：写清催缴的费用类型、金额、计算依据、支付期限、违约金计算标准和起算日期、逾期后果（如支付违约金、解除合同）。</li>
+                                        <li>送达有效：将催告文件送达至合同约定的承租人地址（如身份证地址、企业注册地址）或实际使用地址，用快递寄的要留存底单（注明"租金催款函"），用微信/邮件的要留存发送记录和已读凭证。</li>
+                                        <li>留存证据：建议业务实践中将客户对接人员微信联系人的名称修改为承租人全名。保存所有催告记录（ems底单、截图、录音），后续若起诉，这些是关键证据。</li>
+                                        <li>手段正当：禁止用暴力、威胁、骚扰（如半夜敲门）等非法手段催收，否则可能构成违法，承担法律责任。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要跳过催告直接解除合同或采取停水停电措施，可能被认定为"单方违约"；催告期限要合理（如3-7天），不要给1天这种过短的期限，显得不公允。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 四、房屋的装修与维修 -->
+            <div id="section4" class="section">
+                <h2 class="section-title">四、房屋的装修与维修</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q18">
+                    <div class="question-header">
+                        <div class="question-title">Q1：租赁合同无效，承租人装修的东西该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：分"是否形成附合"和"出租人是否同意用"来定，没附合的可拆走，附合的按过错分担损失，擅自装修的费用自己承担。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>经出租人同意的装修</strong>：
+                                    <ul>
+                                        <li>未形成附合（如可搬走的家具、空调）：
+                                            <ul>
+                                                <li>出租人同意用：可折价归出租人，双方协商折价金额（如空调买时5000元，用了1年，折价3000元）。</li>
+                                                <li>出租人不同意用：承租人可拆走，但拆的时候不能损坏房屋（如拆空调不能破坏墙面），损坏了要恢复原状（如补墙）。</li>
+                                            </ul>
+                                        </li>
+                                        <li>已形成附合（如墙纸、吊顶）：
+                                            <ul>
+                                                <li>出租人同意用：折价归出租人，折价金额可找评估机构评估装修现值。后续其他承租人接收利用被装修的物业的，也算出租人使用了前手装修。</li>
+                                                <li>出租人不同意用：双方按过错分担现值损失，比如出租人明知房屋违法还出租（主责），承租人没核实房屋合法性（次责），可能按7:3/5:5的比例分担损失。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>未经出租人同意的装修</strong>：不管是否形成附合，费用都由承租人自己承担，出租人还可要求承租人恢复原状（如撕掉墙纸）或赔偿损失（如墙面损坏的维修费）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：合同中要明确"装修需经出租人书面同意"，避免承租人擅自装修；同意装修时，最好提前书面约定"合同无效后装修的处理方式"，减少后续纠纷。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q19">
+                    <div class="question-header">
+                        <div class="question-title">Q2：租赁合同解除，承租人装修的东西该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：先看合同约定，没约定的需结合"是否同意装修、是否形成附合、解除原因"判断，出租人违约导致解除要赔装修损失，承租人违约则不赔。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>优先按合同约定</strong>：若合同中写明"租赁解除后，装修装饰物归出租人所有，承租人不得要求赔偿"或"可拆走的装修由承租人拆走"，按合同执行。</li>
+                                <li><strong>无约定时的法定规则</strong>（承租人经同意装修）：
+                                    <ul>
+                                        <li>未形成附合：承租人可拆走，拆时不损坏房屋，损坏需赔偿。</li>
+                                        <li>已形成附合：
+                                            <ul>
+                                                <li>出租人违约导致解除（如出租人没修房子导致承租人无法使用房屋）：出租人可能需赔偿承租人"剩余租赁期内的装修残值损失"，建议尽量协商解决避免进入诉讼。</li>
+                                                <li>承租人违约导致解除（如承租人欠租超期）：承租人不能要求赔偿装修损失，但若出租人同意用装修，可在利用价值内适当补偿（如装修还能用，部分补偿装修投入）。</li>
+                                                <li>双方违约导致解除（如出租人防火设施不全，承租人擅自改结构）：按过错比例分担装修残值损失。</li>
+                                                <li>不可归责于双方的原因导致解除（如房屋被政府征收）：按公平原则分担装修残值损失。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：房屋交付和交还时，要及时对装修现状拍照、列清单；留存承租人的装修方案；若出租人收回房屋后需按照装修后房屋现状另行出租，租赁合同及终止协议中应约定不补偿装修，避免原承租人主张赔偿。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q20">
+                    <div class="question-header">
+                        <div class="question-title">Q3：承租人没经过同意就装修，该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：可要求承租人恢复原状、赔偿损失，或按合同约定要违约金，擅自装修的费用由承租人自己承担。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>基本处理方式</strong>：
+                                    <ul>
+                                        <li>要求恢复原状：比如承租人擅自刷了墙面颜色、装了吊柜，可书面通知承租人在合理期限内（如7天）恢复成交房时的状态（如把墙面刷回白色、拆掉吊柜）。</li>
+                                        <li>要求赔偿损失：若装修导致房屋损坏（如拆墙装柜子导致墙面开裂），可要求承租人赔偿维修费用（如找装修公司修墙花了2000元，要求承租人付2000元）；若拆除装修导致房屋损坏，也可索赔。</li>
+                                        <li>主张违约金：若合同中约定承租人擅自装修需支付违约金或出租人有权没收押金的，可依约要求承租人支付违约金或没收押金。另外，若承租人装修依约交纳了装修恢复保证金，房屋交还时未恢复原状的，出租人有权没收装修恢复保证金。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>例外情况（视为默示同意）</strong>：
+                                    <ul>
+                                        <li>出租人知道承租人装修（如去房子里看过装修）且未提出异议，可能被法院认定出租人"默示同意"承租人装修，若进入诉讼，出租人可能需根据合同约定以及合同解除的情形，赔偿或适当补偿已形成附合的装修残值损失。但仍可要求承租人自行承担装修费用。</li>
+                                        <li>特殊场景：合同明确约定毛坯交付，且约定用途是开酒店、商铺，承租人必须装修才能用，出租人签合同时没反对，可能视为"默示同意装修"。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：发现承租人擅自装修后，要及时书面提出异议（如发《整改通知书》、物业上门干预要求整改、微信邮件通知等），避免被认定为"默示同意"；不要直接损坏承租人的装修物品（如砸掉承租人装的柜子），可能构成侵权，需赔偿。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q21">
+                    <div class="question-header">
+                        <div class="question-title">Q4：合同有效，租赁期限满了，承租人装修的东西该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：没经过出租人同意的装修，出租人可要求恢复原状、赔偿损失；经过同意且双方有约定的按约定；没约定的话，可拆的承租人拆走，不能拆的出租人在双方协商阶段不用补偿。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>未经同意的装修</strong>：出租人可要求承租人恢复原状（如拆掉擅自装的地板）或赔偿损失（如地板损坏了原地面），装修费用由承租人自己承担。</li>
+                                <li><strong>经同意的装修</strong>：
+                                    <ul>
+                                        <li>有合同约定：按约定处理，比如合同写明"租期届满，装修装饰物无偿归出租人所有"，则承租人不能拆走，也不能要求补偿；若约定"可拆走的装修由承租人拆走"，则承租人可拆走（不损坏房屋）。</li>
+                                        <li>无合同约定：
+                                            <ul>
+                                                <li>未形成附合（如家具、空调）：承租人可拆走，拆时不得损坏房屋，若不拆走，视为放弃，出租人可自行处置。若因拆除导致房屋损坏，承租人要恢复原状。</li>
+                                                <li>已形成附合（如墙纸、吊顶）：因承租人违约导致合同解除或合同租期届满的，出租人不用赔偿或补偿承租人装修残值损失；因出租人违约或双方均违约导致合同解除的，若进入诉讼，有赔偿的风险，但不建议出租人在协商阶段自认补偿。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：租期届满前，可提前通知承租人"装修物品的处理要求"，避免承租人遗留装修物品导致后续清理麻烦。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q22">
+                    <div class="question-header">
+                        <div class="question-title">Q5：怎么确定出租人该负责哪些维修事项？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：先看合同约定，没约定的话，房屋本体（如承重墙、屋顶）和出租方配的设施（如空调）自然损坏由出租人修，承租人用坏的自己修。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>按合同约定</strong>：合同中可明确划分维修责任
+                                    <ul>
+                                        <li>出租人负责：<span class="mark">房屋所在园区或建筑物的公用部分及公用设施；</span>房屋主体结构（承重墙、屋顶、墙面）<span class="mark">及属于甲方的附属设施</span>（水电主管道等）。</li>
+                                        <li>承租人负责：除甲方维修范围以外的所有房屋及附属设施的维修和修复，如家电（空调、冰箱）、家具的日常维修等。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>无约定时的法定规则</strong>：
+                                    <ul>
+                                        <li>出租人负责维修的范围：
+                                            <ul>
+                                                <li>房屋主体结构、基础和公共设施、核心设备管道：如屋顶漏水（非人为破坏）、承重墙开裂损坏、梁柱楼板质量问题、水电燃气供暖主管道堵塞、公共楼梯走廊损坏、外墙外窗变形损坏等。</li>
+                                                <li>出租人配备的附属设施自然损耗：如出租人提供的电梯货梯、中央空调、热水器老化损坏等。</li>
+                                            </ul>
+                                        </li>
+                                        <li>承租人负责维修的范围：
+                                            <ul>
+                                                <li>因承租人使用行为、自身过错导致的损坏：如承租人砸坏墙面、用硬物堵塞下水道、过度使用家电导致损坏。</li>
+                                                <li>承租人自己的装修、添置的设施设备：承租人自己负责维修。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>维修流程</strong>：承租人发现需要维修的问题，应书面通知出租人，出租人在合理期限内维修；若出租人按合同约定应当维修却逾期不维修，承租人可自行维修，费用由出租人承担（需提供维修发票），但不能擅自扩大维修范围（如只是墙面小裂缝，却整个墙面重新刷漆）或增加不合理费用。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：合同中要明确维修责任和维修期限，避免后续"互相推诿"；收到承租人的维修通知后，要及时处理反馈，避免因拖延导致损失扩大（如屋顶漏水没修导致地板损坏），需承担更大赔偿责任。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 五、房屋的占有与使用 -->
+            <div id="section5" class="section">
+                <h2 class="section-title">五、房屋的占有与使用</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q23">
+                    <div class="question-header">
+                        <div class="question-title">Q1：如何应对承租人未按约定使用房屋致损</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：要求承租人恢复原状、赔偿损失（包括直接损失和间接损失），严重的话可解除合同、没收保证金，全程要留证据。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>常见应对措施</strong>：
+                                    <ul>
+                                        <li>要求恢复原状：若承租人擅自变动房屋结构（如拆承重墙）、扩建（如阳台加建），书面通知承租人在合理期限内（如15天）恢复原状，可附上"恢复方案"（如找有资质的公司修复承重墙）。</li>
+                                        <li>要求赔偿损失：
+                                            <ul>
+                                                <li>直接损失：房屋损坏的维修费用（如墙面破损粉刷费2000元、家具损坏重置费5000元），需提供维修合同、发票、采购凭证等证据。</li>
+                                                <li>间接损失：因维修导致房屋无法出租的租金损失（如维修1个月，损失1个月租金5000元），需提供"原本可出租的证明"（如之前的租金合同、租客询价记录）。</li>
+                                            </ul>
+                                        </li>
+                                        <li>解除合同并清退：若承租人严重违约（如损坏主体结构且拒不修复），或经书面催告仍不整改，可按合同约定解除合同，要求承租人腾退房屋，没收租赁保证金（若合同有约定）。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>证据留存</strong>：
+                                    <ul>
+                                        <li>拍取房屋损坏前后的对比照片、视频，明确损坏程度。</li>
+                                        <li>保存与承租人的沟通记录（如微信、邮件、书面通知），证明承租人知晓损坏事实和整改要求。</li>
+                                        <li>收集维修费用、租金损失的相关凭证，方便主张赔偿。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：发现房屋损坏后，不要拖延处理，避免损坏扩大（如小裂缝变成大裂缝），导致损失增加；不要自行维修后再找承租人报销，最好先通知承租人，协商维修方案，避免承租人不认账。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q24">
+                    <div class="question-header">
+                        <div class="question-title">Q2：承租人超出租赁范围加建（如门口加雨棚），该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：先书面要求停止加建、恢复原状，赔损失，严重的话解除合同，还可向主管部门举报，全程留证据。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>递进式应对措施</strong>：
+                                    <ul>
+                                        <li>书面制止：发《整改通知书》，明确要求承租人立即停止加建、要求其在合理期限内拆除加建物（如雨棚）、恢复原状，告知其加建已超出租赁范围且可能违法，若不整改将承担的后果（如赔偿损失、解除合同）。</li>
+                                        <li>要求赔偿：若加建导致租赁物损坏（如破坏墙面、地面），收集维修费用凭证（如装修公司报价单、发票），要求承租人赔偿；若加建导致出租人被主管部门罚款（如违建罚款），也可要求承租人承担罚款金额。</li>
+                                        <li>解除合同：若承租人拒不停止加建、拒不拆除，或加建行为严重违反合同约定（如合同明确禁止加建），可书面通知承租人解除合同，要求腾退房屋。</li>
+                                        <li>行政举报：若加建是违法建筑（没办手续），可向当地住建局、城管部门举报，由行政部门责令承租人停止建设、限期拆除，相关行政决定可作为后续民事诉讼的证据。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>证据要点</strong>：
+                                    <ul>
+                                        <li>拍照取证加建过程和加建后的情况，留存照片、视频，证明加建事实和超出租赁范围（例如：租赁范围是室内，加建在门口公共区域；或底层商铺违规扩建至外摆区域）。</li>
+                                        <li>保存租赁合同（证明禁止加建的约定）、书面通知（证明已催告）、行政部门的处理文件（证明加建违法，如有）。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要默许承租人加建，一旦发现应立即发函通知，否则可能被认定为"同意加建"，后续不能再要求拆除；加建若涉及公共区域（如园区草坪），可能被其他园区客户投诉，要及时处理，避免影响园区客户间关系和出租人声誉。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q25">
+                    <div class="question-header">
+                        <div class="question-title">Q3：哪些情况下，出租人要为承租人行为对外担责？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：承租人用房子做违法或违规的事（如传销、无照经营、赌博），出租人明知或应知却没制止，可能要担民事、行政甚至刑事责任。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>常见担责情形（不完全列举）</strong>：
+                                    <ul>
+                                        <li>传销相关：为传销提供经营场所、培训场所等，会被责令停止违法行为，没收违法所得，处罚款。</li>
+                                        <li>无照经营相关：明知承租人无照经营还提供场所，会被责令停止违法行为，没收违法所得，可处罚款；若承租人的无照经营导致消费者损失，出租人可能要承担连带赔偿责任。</li>
+                                        <li>商标侵权相关：故意为承租人的商标侵权行为（如卖假货）提供场所，可能要承担停止侵权、赔偿损失的民事责任。</li>
+                                        <li>安全生产相关：将场所出租给不具备安全生产条件的承租人（如无消防资质的工厂），导致发生安全事故，出租人要承担连带赔偿责任，还可能被行政罚款。</li>
+                                        <li>赌博相关：以营利为目的，为赌博提供场所（如出租房屋给人开赌场），可能构成赌博罪或开设赌场罪的共犯，承担刑事责任（如拘役、罚金）。</li>
+                                        <li>违法培训相关：明知承租人无资质开展违法培训（如无证校外培训）仍提供场所，会被责令整改，可能被罚款。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>免责关键</strong>：出租人要尽到"审慎义务"，比如核查承租人的经营资质、定期检查房屋使用情况，发现违法违规行为及时制止并书面通知，必要时解除合同，留存相关证据（如检查记录、通知），证明自己"不知情或已及时制止"。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要只收租金不管承租人的用途，定期上门检查或要求承租人提供经营情况报告；若发现承租人有违法嫌疑，及时向主管部门举报，避免被牵连。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q26">
+                    <div class="question-header">
+                        <div class="question-title">Q4：承租人想在房屋外墙挂广告牌，出租人能拒绝吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：能拒绝。外墙挂广告牌属于"改善或增设他物"，需经出租人同意，还得符合户外广告规定，出租人可基于管理或共有权利拒绝。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>法律依据</strong>：承租人对租赁物进行改善或增设他物，需经出租人同意，未经同意的，出租人可要求恢复原状或赔偿损失。房屋外墙属于租赁物的一部分，挂广告牌属于"增设他物"，必须经出租人同意。</li>
+                                <li><strong>出租人可拒绝的理由</strong>：
+                                    <ul>
+                                        <li>合同约定：若合同中明确禁止"在外墙悬挂物品"，可依约拒绝。</li>
+                                        <li>管理需求：比如外墙挂广告牌影响房屋外观、存在安全隐患（如广告牌脱落砸人），或不符合园区/大楼的统一管理规定（如物业禁止外墙挂广告牌）。</li>
+                                        <li>法规要求：户外广告牌需经主管部门（如城管、市场监管局）审批，若承租人无法提供审批手续，出租人可拒绝，避免因违规被行政罚款。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>同意的注意事项</strong>：若出租人同意挂广告牌，需书面约定广告牌的尺寸、位置、期限、维护责任（如广告牌损坏由承租人维修）、安全责任（如广告牌脱落导致他人损失由承租人赔偿），避免后续纠纷。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要口头同意承租人挂广告牌，或仅办理简单的申请审批，必须签订书面协议约定相关责任；若承租人未经同意擅自挂出广告牌，及时书面要求拆除，避免因拖延导致广告牌存在时间过长，被认定为"默认同意"。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q27">
+                    <div class="question-header">
+                        <div class="question-title">Q5：哪些情况下，出租人可以对房屋停水停电？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：只有在合同到期或合法解除后，承租人拒不腾退房屋时才能停水停电，且要提前催告、给准备时间；仅欠租没解除合同的，不建议停水停电，能源依赖度高的承租人（如生物医药）也不建议停。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>相关流程</strong>：
+                                    <ul>
+                                        <li>前提条件：租赁合同已到期，或已合法解除（如承租人违约导致出租人单方解除，且解除程序合法），承租人无正当理由拒不腾退房屋。此时承租人占用房屋不合法，出租人没有义务继续提供水电，停水停电属于"自助自救"，不构成侵权。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>操作要求</strong>：
+                                    <ul>
+                                        <li>提前催告：在停水停电前，书面通知承租人（如《停水停电通知书》），说明停水停电的原因（如"合同已到期拒不腾退"）、具体时间（如"3天后的上午10点"），给予承租人合理的准备时间（如3-7天），让其处理水电相关事宜（如转移冷藏物品）。</li>
+                                        <li>控制范围：停水停电的期限要合理，以"促使承租人腾退"为目的。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>不建议停水停电的情形</strong>：
+                                    <ul>
+                                        <li>仅欠租未解除合同：承租人只是拖欠租金，但租赁合同尚未到期且未解除，此时停水停电可能构成违约或侵权，承租人可要求赔偿损失（如因停水导致工厂停产的损失）。</li>
+                                        <li>能源依赖度高的承租人：如承租人是生物医药公司（需冷藏药品）、冷冻食品企业（需冷冻货物）、检测检验机构（需稳定电源），停水停电可能导致承租人重大损失，承租人会反向索赔，风险极高。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：停水停电前务必确认"合同已到期或合法解除"，留存相关证据（如解除通知、腾退催告）；不要用停水停电逼迫承租人交租，优先通过书面催告、主张违约金等方式维权。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 六、房屋转租相关权责 -->
+            <div id="section6" class="section">
+                <h2 class="section-title">六、房屋转租相关权责</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q28">
+                    <div class="question-header">
+                        <div class="question-title">Q1：怎么判断承租人的转租行为是否有效？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：关键看是否经出租人同意（书面、口头或其他明示方式），同意了就有效；转租期超剩余租期的，对出租人没约束力，租期到了出租人可要求次承租人搬。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>有效转租的核心条件</strong>：承租人经出租人同意转租，同意的方式包括：
+                                    <ul>
+                                        <li>书面同意：出租人在《转租同意书》上签字，或在转租合同上盖章确认。</li>
+                                        <li>口头同意：出租人通过电话、当面沟通等方式明确表示同意。</li>
+                                        <li>其他明示方式：如出租人知道承租人转租后，收取了次承租人支付的租金，或参与了转租合同的协商，视为同意。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>转租有效的法律关系</strong>：
+                                    <ul>
+                                        <li>出租人与承租人的原租赁合同继续有效，承租人仍需按原合同向出租人履行义务（如交租、维修房屋）。</li>
+                                        <li>承租人与次承租人的转租合同有效，双方按转租合同履行（如次承租人向承租人交租，承租人向次承租人提供房屋）。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>特殊情况（转租期超剩余租期）</strong>：若转租合同约定的租期超过承租人的剩余租赁期（如承租人剩余租期1年，转租期2年），超过部分对出租人无约束力，原租赁合同到期后，出租人可要求次承租人腾退房屋；次承租人逾期不腾退的，出租人可要求次承租人支付房屋占有使用费（通常按原租金或市场租金算）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：发现承租人擅自转租，务必要在6个月内提出异议，否则可能视为同意转租，难以据此主张承租人违约。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q29">
+                    <div class="question-header">
+                        <div class="question-title">Q2：承租人没经过同意就转租，该怎么应对？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：合同禁止转租的，可依约要求承租人承担违约责任（如解除合同、没收保证金），发现后及时沟通、留证据，6个月内提异议，避免视为同意。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>应对步骤</strong>：
+                                    <ul>
+                                        <li>收集证据：拍取转租现场照片（如次承租人在房屋内居住/经营的场景）、获取转租合同复印件、留存次承租人的联系方式，证明承租人擅自转租的事实。</li>
+                                        <li>及时沟通：与承租人面谈或发书面通知，明确指出"未经同意转租违反合同约定"，要求承租人在合理期限内（如7天）整改（如解除与次承租人的转租合同、让次承租人腾退），说明逾期不整改的后果。</li>
+                                        <li>主张权利：
+                                            <ul>
+                                                <li>若合同约定"擅自转租可解除合同"，可书面通知承租人解除原租赁合同，要求承租人腾退房屋，没收租赁保证金（若合同有约定）。</li>
+                                            </ul>
+                                        </li>
+                                        <li>关键时限：根据法律规定，出租人知道或应当知道承租人擅自转租后，若在6个月内未提出异议，视为同意转租，之后不能再以"未经同意"为由解除合同或主张转租无效，因此要在6个月内及时行动。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要拖延处理擅自转租的情况，超过6个月可能丧失异议权；解除合同前，要确保"擅自转租"的证据充分，避免承租人否认（如称次承租人是"亲戚暂住"）。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q30">
+                    <div class="question-header">
+                        <div class="question-title">Q3：哪些情况下，出租人可以清退次承租人？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：两种情况，一是承租人未经同意转租，出租人解除租赁合同后；二是租赁合同无效、到期或解除后，次承租人没依据再占房，此时可清退，还能主张占有费。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>可清退次承租人的情形</strong>：
+                                    <ul>
+                                        <li>承租人擅自转租，出租人解除租赁合同：承租人未经同意转租，出租人在6个月内提出异议并解除与承租人的租赁合同，次承租人的占有失去合法基础（因次承租人的权利源于承租人的转租权），出租人可要求次承租人腾退房屋。</li>
+                                        <li>租赁合同无效、到期或合法解除：
+                                            <ul>
+                                                <li>租赁合同无效（如租赁物是违法建筑）：转租合同也可能无效，次承租人不能再占有房屋，出租人可清退。</li>
+                                                <li>租赁合同到期：出租人与承租人未续租，租赁合同终止，次承租人的转租期限也随之到期，出租人可清退。</li>
+                                                <li>租赁合同合法解除（如承租人欠租导致出租人解除）：租赁合同解除后，承租人的权利终止，次承租人的占有失去依据，出租人可清退。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>占有费主张</strong>：次承租人拒不腾退的，出租人可要求其支付房屋占有使用费，标准通常参照以下三者之一：
+                                    <ul>
+                                        <li>原租赁合同的租金标准。</li>
+                                        <li>转租合同的租金标准。</li>
+                                        <li>房屋的市场租金标准（若前两者与市场差异大）。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：清退次承租人前，要先确保"租赁合同已无效、到期或解除"，留存相关证据（如解除通知、合同到期证明）；不要直接强行清退（如换锁、搬东西），最好书面通知次承租人腾退，逾期不腾退再通过法律途径（如起诉）解决，避免构成侵权。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q31">
+                    <div class="question-header">
+                        <div class="question-title">Q4：出租人能以次承租人使用行为为由直接清退次承租人吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：不能。按合同相对性，出租人只和承租人有关系，和次承租人没关系，要清退需先解除与承租人的租赁合同，再要求次承租人搬。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>合同相对性原则</strong>：出租人与承租人签订租赁合同，承租人与次承租人签订转租合同，两个合同是独立的，出租人不是转租合同的当事人，不能直接要求次承租人履行义务（如整改使用不当）或承担责任（如清退）。</li>
+                                <li><strong>正确处理流程</strong>：
+                                    <ul>
+                                        <li>通知承租人整改：发现次承租人使用不当（如损坏房屋、违规经营），书面通知承租人，要求承租人在合理期限内督促次承租人整改，说明"若不整改，将追究承租人的违约责任"。</li>
+                                        <li>解除租赁合同（必要时）：若承租人拒不整改，或次承租人的使用不当行为严重违反租赁合同约定（如损坏房屋主体结构），出租人可按租赁合同约定解除与承租人的合同，租赁合同解除后，次承租人的占有失去合法基础，出租人再要求次承租人腾退。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>直接清退的风险</strong>：若出租人未解除租赁合同，直接清退次承租人（如换锁、阻止次承租人进入），可能构成侵权，次承租人可要求出租人赔偿损失（如经营损失、物品损坏损失）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要跳过承租人直接找次承租人处理问题，避免违反合同相对性；定期与承租人沟通房屋使用情况，通过协议约定、书面通知等方式要求承租人承担"监管次承租人"的责任，及时发现并整改使用不当的问题。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 七、物业管理与服务 -->
+            <div id="section7" class="section">
+                <h2 class="section-title">七、物业管理与服务</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q32">
+                    <div class="question-header">
+                        <div class="question-title">Q1：物业服务方遇到房屋内发生盗窃事件，该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：留存"已履行安全义务"的证据，引导被服务方报公安，协助查明情况，不要承诺担责。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>核心处理步骤</strong>：
+                                    <ul>
+                                        <li>留存证据：立即收集物业服务方已履行安全义务的证据，如巡逻记录（带巡逻人员签字和时间）、监控录像（证明盗窃发生时监控正常运行）、安保人员培训签到表（证明安保人员具备履职能力），证明自己无过错。</li>
+                                        <li>协助报案：引导被盗人员向公安机关报案，配合公安调取监控、提供巡逻记录，帮助固定盗窃事实，不要自行调查或承诺"一定找到小偷"。</li>
+                                        <li>应对索赔：若被服务方以"物业没尽到安全义务"要求赔偿，不要直接承诺赔偿，可告知被服务方"需先由公安认定盗窃事实，再根据物业是否有过错判断是否担责"；若被服务方拒交物业费，发书面《物业费催交通知书》，说明"物业服务已提供，被盗与物业费缴纳是不同法律关系，拒交物业费需承担违约责任"。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>责任认定关键</strong>：物业承担赔偿责任的前提是"未履行合同约定或法定的安全义务"，比如：
+                                    <ul>
+                                        <li>公区监控损坏长期未修，导致无法调取监控画面。</li>
+                                        <li>安保人员擅离职守，未按规定巡逻。</li>
+                                    </ul>
+                                    若物业已尽到上述义务，即使发生盗窃，物业服务行为和被盗结果之间不具有直接因果关系；若被盗物品在租赁房屋内，且无证据证明物业有过错，物业也无需担责。
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：物业服务细则中应当明确我方<span class="mark">对其人身、财产（含机动车）不负责保管和保险责任。</span>平时要定期检查监控、巡逻设备，做好巡逻记录和培训记录，这些是后续免责的关键证据；不要与被服务方发生争执，用理性沟通和提供证据的方式处理纠纷。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q33">
+                    <div class="question-header">
+                        <div class="question-title">Q2：物业服务方遇到停放的车辆受损，该怎么处理？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：先协助找侵权人，找不到的话证明自己已尽义务（如监控有效、贴了警示），被服务方索赔的，从合同约定、侵权主体、过错程度抗辩，可引导找侵权人或报保险。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>初步处理</strong>：
+                                    <ul>
+                                        <li>协助找侵权人：若车辆是被高空坠物/脱落物砸坏，立即调取监控确定坠物来源（如哪栋楼、哪个窗户），报警后，协助联系涉事人员，让其承担赔偿责任；若监控无法确定，报警后，可根据实际情况协助被服务方向可能加害的建筑物使用人主张权利（按法律规定，无法确定侵权人的，可能加害的使用人需补偿）。</li>
+                                        <li>保护现场与取证：拍取车辆受损照片、坠物照片、现场环境照片，留存监控录像，协助被服务方报保险（如车损险），方便被服务方理赔。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>应对业主索赔</strong>：
+                                    <ul>
+                                        <li>合同约定抗辩：若物业服务合同中明确"车辆停放仅提供场地，不承担保管责任"，可据此主张不承担赔偿责任，说明"物业收取的是场地使用费，不是保管费"。</li>
+                                        <li>侵权主体抗辩：若能找到明确的侵权人（如刮车的人、坠物的人），引导被服务方向侵权人直接索赔，物业仅承担协助义务，不承担赔偿责任。</li>
+                                        <li>过错程度抗辩：若物业已尽到安全义务（如监控正常运行、定期巡查停车场、张贴"禁止高空抛物"警示标语），且车辆受损与物业无关，可证明自己无过错，拒绝赔偿；若物业有轻微过错，可与被服务方协商按过错比例承担部分赔偿，并及时整改。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：停车场要安装清晰的监控，定期检查并留存检查记录，张贴足够的警示标语；在物业服务合同中明确"车辆停放的责任范围"，避免后续纠纷。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q34">
+                    <div class="question-header">
+                        <div class="question-title">Q3：哪些情况下，被服务方有权拒付物业服务费？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：只有物业服务方完全没提供核心服务（如完全没人保洁、安保），被服务方才有权拒付；一般瑕疵（如偶尔卫生差）不能拒付。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>可拒付的情形</strong>：物业服务方"根本违约"，完全未提供合同约定的核心服务或对被服务方造成实质性影响且在合理期限内未能进行有效整改，比如：
+                                    <ul>
+                                        <li>完全没有保洁服务，园区垃圾长期无人清理。</li>
+                                        <li>完全没有安保服务，园区大门无人巡逻，监控全部损坏未修。</li>
+                                        <li>完全没有维修服务，公共设施（如电梯、路灯）损坏，长期无法使用，物业拒不维修。</li>
+                                    </ul>
+                                    此时被服务方有权拒付物业费，还可要求解除物业服务合同并赔偿损失。
+                                </li>
+                                <li><strong>不可拒付的情形</strong>：
+                                    <ul>
+                                        <li>一般服务瑕疵：如偶尔一次卫生清理不及时、电梯小故障延迟1天维修、局部照明设备损坏未及时维修、安保人员偶尔迟到，这些属于轻微违约，不构成根本违约，被服务方不能拒付物业费，可要求物业整改。</li>
+                                        <li>未接收房屋但已到起租日：若租赁合同约定"物业费自租赁期限开始日起由承租人支付"，且出租人已通知承租人收房（房屋符合交付条件），但承租人无正当理由拒绝接收，承租人仍需按约支付物业费，因为"未接收"是承租人自身原因导致，与物业是否提供服务无关。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：物业服务方要及时回应被服务方的投诉，积极整改服务瑕疵，避免因小问题导致被服务方拒付物业费；留存物业服务情况（如保洁记录、维修记录），证明服务已提供。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q35">
+                    <div class="question-header">
+                        <div class="question-title">Q4：物业服务方要为屋顶漏水承担责任吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：看漏水部位、物业是否尽义务、漏水原因。屋顶是共有部分，物业有维修义务，没修或拖延修导致损失的要担责；已修或因自然老化漏水的，不担责。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>责任判断核心</strong>：
+                                    <ul>
+                                        <li>漏水部位性质：屋顶通常属于业主共有部分，物业服务方有法定和合同约定的维修养护义务（如定期检查、及时维修）。</li>
+                                        <li>物业履行义务情况：
+                                            <ul>
+                                                <li>需担责的情况：物业未履行维修义务（如被服务方报修后拒不维修、拖延维修），或未定期检查导致漏水隐患未及时发现，造成被服务方损失（如屋顶漏水导致室内墙面损坏、家具发霉），物业需承担维修责任或赔偿损失（如赔偿被服务方的墙面维修费、家具维修费）。</li>
+                                                <li>不担责的情况：物业已尽到维修义务（如被服务方报修后及时安排维修，维修后效果符合标准），但屋顶仍漏水（如因维修技术限制）；或屋顶漏水是因超过质保期的自然老化（如屋顶防水层使用超年份自然损坏），且物业已及时维修，物业无需担责；若屋顶漏水是因被服务方自行改造（如在屋顶加建阳光房导致防水层损坏），物业无维修义务，仅承担协调义务（如协助联系维修人员），不担责。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>处理流程</strong>：被服务方发现屋顶漏水后，书面通知物业报修，物业应在合理期限内安排维修，留存维修记录（如维修合同、维修人员签字、业主确认单）；若造成损失，双方协商赔偿金额，协商不成的，被服务方可提供损失证据（如维修发票、购物凭证）向法院起诉，由法院判断物业是否担责。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：物业要定期检查屋顶，做好检查记录，及时处理漏水隐患；收到被服务方报修后，尽快安排维修，留存维修证据，避免因"拖延"或"无记录"被认定为未履行义务。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q36">
+                    <div class="question-header">
+                        <div class="question-title">Q5：物业服务方要为外墙脱落承担责任吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：看物业是否尽到共有部分的维护管理义务。没定期检查、没警示、没维修导致脱落的要担责；已尽义务或因不可抗力脱落的，不担责。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>法律义务</strong>：物业服务方需按照约定和物业使用性质，维护、养护物业服务区域内的业主共有部分（外墙属于共有部分），采取合理措施保护业主的人身、财产安全。</li>
+                                <li><strong>责任判断</strong>：
+                                    <ul>
+                                        <li>需担责的情况：物业未履行维护管理义务，比如：
+                                            <ul>
+                                                <li>未定期对外墙进行检查。</li>
+                                                <li>发现外墙有脱落风险后，未张贴警示标语（如"外墙有脱落风险，请勿靠近"），也未及时组织维修。</li>
+                                                <li>被服务方报修外墙问题后，物业拒不维修或拖延维修，导致外墙脱落，造成被服务方或他人人身、财产损失（如外墙瓷砖脱落砸坏车辆、砸伤行人），物业可能需承担侵权责任，赔偿损失。</li>
+                                            </ul>
+                                        </li>
+                                        <li>不担责的情况：
+                                            <ul>
+                                                <li>物业已尽到义务：如定期检查外墙、发现隐患后及时警示并组织维修，或维修后因不可抗力（如地震、台风）导致外墙脱落，物业无需担责。</li>
+                                                <li>因被服务方原因脱落的：如被服务方擅自在外墙安装空调、太阳能板导致外墙损坏脱落，物业无维修义务，不担责，由被服务方承担责任。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>风险防范</strong>：物业要建立外墙定期检查制度，做好检查记录；发现隐患及时警示并维修，留存维修记录和警示照片；若外墙老化严重，应及时处理，避免脱落事故发生。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要忽视外墙的维护，尤其是老旧物业的外墙，脱落风险较高；一旦发生外墙脱落事故，立即收集"已尽义务"的证据（如检查记录、警示照片），避免被认定为过错方。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+            <!-- 八、租赁合同终止与解除 -->
+            <div id="section8" class="section">
+                <h2 class="section-title">八、租赁合同终止与解除</h2>
+                
+                <!-- Q1 -->
+                <div class="question" id="q37">
+                    <div class="question-header">
+                        <div class="question-title">Q1：合同约定的解约条件满足了，出租人要履行哪些解约手续？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：要发书面解除通知、结算费用、办房屋交接、留证据，共5项核心手续，确保程序合法，避免后续纠纷。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>5项核心解约手续</strong>：
+                                    <ul>
+                                        <li>发送书面解除通知：写清楚解除事由/违约情形（如"承租人欠租超30天，符合合同约定的解约条件"）、解除依据（如合同第X条）、解除时间（如"本通知发出后3天，合同正式解除"），可附相关证据（如欠租催款记录），通过EMS快递或当面送达，留存送达证据（如EMS快递底单、承租人签字的收据）。常用通知文件包括《租金催缴函》（解约前的催告）、《关于租赁协议终止及收回房屋的通知》（正式解除）、《收房公告》（承租人失联时使用）。</li>
+                                        <li>结算全部费用：与承租人核对租赁期间的所有费用，包括租金（欠付或多付的）、水电费、物业费、违约金、滞纳金等，明确计算依据（如合同约定的租金标准、违约金比例），形成书面费用确认单或终止协议，双方签字确认；若承租人拒签字，可单方出具费用明细并书面通知承租人，留存通知证据。</li>
+                                        <li>办理房屋交接：收回房屋时，双方共同检查房屋状态（如墙面、地面、附属设施是否损坏），对照交房时的照片或清单核对，形成《房屋交接记录》，注明"房屋已收回，设施完好/存在XX损坏"，双方签字确认；若承租人拒不配合交接，可邀请物业或社区工作人员在场见证，制作交接记录并拍照、录像，证明房屋已收回。</li>
+                                        <li>留存全部证据：将解除通知、结算单、交接记录、快递底单、聊天记录等所有文件整理存档，后续若发生纠纷（如承租人起诉），这些是关键证据。</li>
+                                        <li>处理遗留物品：若承租人有物品留在房屋内，按"通知取回→清点封存→妥善保管"的流程处理，避免擅自处置。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要口头通知解除合同，必须书面形式；解约前要确保"解约条件确实满足"，留存相关证据，避免因条件不满足导致解除行为无效。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q2 -->
+                <div class="question" id="q38">
+                    <div class="question-header">
+                        <div class="question-title">Q2：合同约定的解约条件满足了，但出租人没解约，会有什么后果？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：合同继续有效，双方还要按原合同履行，出租人可能被视为"放弃解除权"，后续不能再解约，还可能无法要求赔偿扩大的损失。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>主要后果</strong>：
+                                    <ul>
+                                        <li>合同继续履行：出租人享有约定解除权但未行使（如没发解除通知），租赁合同继续有效，出租人仍需按合同提供房屋，承租人仍需交租，若出租人拒提供房屋或要求承租人腾退，可能构成违约，需承担赔偿责任。</li>
+                                        <li>可能放弃解除权：若出租人在解约条件成就后，做出"认可合同继续履行"的行为，如收取承租人的租金（尤其是解约条件成就后的租金）、接受承租人的履行（如同意承租人续租），可能被法院认定为"以行为放弃解除权"，后续再以"解约条件成就"为由主张解除合同，可能不被支持。</li>
+                                        <li>无法要求赔偿扩大损失：若出租人明知承租人有违约行为（如违规使用房屋、损坏房屋），却未及时解约，导致损失扩大（如房屋损坏从轻微变成严重），后续主张赔偿时，法院可能不支持"扩大的损失"部分，认为"出租人未及时止损，自身有过错"。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>风险防范</strong>：若出租人暂时不想解约（如希望承租人补交所欠租金），需留存费用催缴通知、承租人承诺整改函件等证据，证明"未解约是因承租人承诺整改，并非放弃解除权"。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要忽视"解约条件成就"后的处理，即使不想解约，也要书面明确承租人违约情形并要求承租人整改，避免被认定为"放弃解除权"；若承租人拒不整改，及时行使解除权，避免损失扩大。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q3 -->
+                <div class="question" id="q39">
+                    <div class="question-header">
+                        <div class="question-title">Q3：出租人单方解除合同后，能自行处置承租人的遗留物品吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：不能直接处置。要先通知承租人取，承租人不取的话，清点封存、妥善保管，合同有约定的也要先确认物品权属，第三方的物品不要动。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>正确处理流程</strong>：
+                                    <ul>
+                                        <li>通知取回：单方解除合同后，书面通知承租人（如发出《遗留物品取回通知书》、邮件等），说明"合同已解除，请在X天内（如7天）到房屋内取回遗留物品"，告知逾期不取的处理方式（如"将清点封存至仓库，保管费用由你承担"），留存通知证据（如快递底单、微信截图）。</li>
+                                        <li>清点封存：承租人逾期未取回的，邀请物业、社区工作人员或律师在场见证，对遗留物品逐项清点，拍照、录像固定物品状态，制作《遗留物品清单》，由见证人签字，将物品密封包装（如贴封条注明"封存日期、保管人"），有保管条件的，可存放在安全的仓库或场所，避免损坏、丢失。</li>
+                                        <li>妥善保管：保管期间，定期检查物品状态（如防潮），不要擅自拆封或使用物品，若物品是易腐变质的（如食物），可先通知承租人，承租人仍不取的，可拍照后合理处置（如丢弃），留存处置证据。</li>
+                                    </ul>
+                                </li>
+                                <li><strong>合同约定的注意事项</strong>：即使合同中约定"承租人未在合理期限内腾空，遗留物品视为遗弃物，出租人有权自行处置"，出租人仍需先确认物品权属，若物品属于第三方（如承租人的客户寄放的货物），不要自行处置，避免被第三方主张侵权；若确实是承租人的个人物品，且经多次通知仍不取，可按合同约定处置（如回收、拍卖、捐赠），但需留存"多次通知"的证据。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要未经通知承租人就直接扔掉或卖掉承租人的遗留物品，即使认为是"垃圾"，也要先通知和清点，避免承租人后续主张"物品价值高"要求赔偿；保管物品的费用（如仓库租金），可按合同约定或法律规定要求承租人承担。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q4 -->
+                <div class="question" id="q40">
+                    <div class="question-header">
+                        <div class="question-title">Q4：承租人欠租，出租人能扣留承租人物品抵债吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：通常不能。租金和承租人物品不是同一法律关系，不符合留置权要求，擅自扣留可能构成侵权，要赔偿损失。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>法律依据</strong>：留置权的行使需满足"债权人合法占有债务人的动产，且动产与债权属于同一法律关系"。租金债权是承租人"使用房屋"产生的，而承租人物品（如家具、电脑）是承租人所有的独立动产，与"使用房屋"没有直接关联，不符合"同一法律关系"的要求，因此出租人不能行使留置权扣留物品抵债。</li>
+                                <li><strong>擅自扣留的风险</strong>：若出租人擅自扣留承租人物品（如换锁不让承租人取走物品、搬走物品扣留在仓库），可能被认定为"非法占有他人动产"，构成侵权，承租人可要求出租人返还物品，若物品损坏或丢失，还可要求赔偿损失（如电脑损坏赔偿5000元）。</li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：不要采取"扣物品逼交租"的方式，这是违法行为，可能得不偿失；维权要通过合法途径，留存催告、合同、欠租记录等证据，必要时委托律师起诉。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q5 -->
+                <div class="question" id="q41">
+                    <div class="question-header">
+                        <div class="question-title">Q5：强制清退承租人时，有哪些注意事项？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：严守"程序合法、证据留存、行为合规"，先多次通知，现场邀多方见证、全程录像，不强制驱赶，禁止暴力或停水停电。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>三大核心原则与操作要点</strong>：
+                                    <ul>
+                                        <li>履行通知义务：
+                                            <ul>
+                                                <li>多次书面催告：清退前，至少两次书面通知承租人自行清退，第一次通知"合同已解除/到期，请在X天内腾退"，第二次通知"逾期未腾退，将于X天内组织强制清退，请派员到场配合"，同时通过电话、微信同步通知，留存邮寄底单、聊天记录等送达证据。</li>
+                                                <li>明确清退细节：通知中写明清退时间、地点、到场见证方（如派出所、社区、物业）、物品处置方式（如"遗留物品将清点封存至XX仓库"），让承租人知晓流程。</li>
+                                            </ul>
+                                        </li>
+                                        <li>规范现场操作：
+                                            <ul>
+                                                <li>邀请多方见证：清退当天，邀请派出所民警、社区工作人员、物业公司人员到场见证，必要时邀请律师或公证处人员（尤其涉及大额资产、大面积租赁时），确保流程公开透明，见证方需在后续的《清退记录》上签字确认。</li>
+                                                <li>全程视听存证：从房屋现状勘查（清退前的房屋照片、视频，标注时间地点）、物品清点（逐项列清单，注明物品名称、规格、数量、状态，如"电脑1台，外观完好"）、搬运（记录物品从房屋搬出至运输车辆的过程）、仓储封存（贴封条注明"封存日期、保管人、联系方式"，拍照固定封条状态），全程录音录像，录像需清晰体现见证方在场，避免后续承租人否认"物品已清点"或"清退程序违规"。</li>
+                                                <li>物品处置合规：
+                                                    <ul>
+                                                        <li>普通物品：清点后转移至安全仓储空间（如带监控的仓库）封存，保管期间禁止擅自拆封、使用，定期检查物品状态（如防潮、防鼠），避免损坏。</li>
+                                                        <li>易腐变质/过期物品：提前书面催告承租人"限期X天内处理易腐物品，逾期将按合理方式处置"，催告无果后，采取全包销售、委托拍卖等方式处置，留存销售合同、收款凭证、处置过程照片，处置款项妥善保管并书面通知承租人领取。</li>
+                                                    </ul>
+                                                </li>
+                                            </ul>
+                                        </li>
+                                        <li>严守法律边界：
+                                            <ul>
+                                                <li>禁止强制驱赶：仅可对房屋内遗留物品进行清点、搬运、封存，无权强制驱赶承租人本人（如拖拽、限制人身自由），若承租人现场阻挠，由派出所等见证方协助协调，必要时报警处理，切勿发生肢体冲突。</li>
+                                                <li>不越权处置财产：清退、财产处置的权力专属法院，若承租人对清退行为提出异议（如否认合同已解除）或拒不配合，出租人应暂停清退，持租赁合同、解除通知、催告记录等证据向法院提起诉讼，请求判令承租人腾退。</li>
+                                                <li>禁用违法手段：禁止破坏承租人财物等过激行为逼迫腾退，否则可能构成侵权，需赔偿承租人损失。</li>
+                                            </ul>
+                                        </li>
+                                    </ul>
+                                </li>
+                                <li><strong>风险兜底措施</strong>：
+                                    <ul>
+                                        <li>关键环节公证：清退全程（尤其是物品清点、封存）可委托公证处办理保全证据公证，公证机构出具的公证书在诉讼中具有较强证明力，能大幅降低举证难度。需注意提前与公证处沟通流程，足额支付公证费用，确保公证程序顺利推进。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：清退全程需围绕"避免自身过错"展开，即使承租人违约在先，也不能突破法律边界；清退后需书面通知承租人"物品保管地点、联系方式、领取期限"，若承租人长期失联，才可按无主物相关规定处理，但需留存完整催告及公示记录，确保处置合法。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+                <!-- Q6 -->
+                <div class="question" id="q42">
+                    <div class="question-header">
+                        <div class="question-title">Q6：承租人提前解约，出租人能要求赔偿免租期租金吗？</div>
+                        <div class="toggle-icon">▼</div>
+                    </div>
+                    <div class="answer">
+                        <p><strong>简答</strong>：看合同约定，有约定就按约定；没约定的，法院可能按实际租赁时间折算赔偿，也可能不支持，需结合解约原因和公平原则判断。</p>
+                        
+                        <button class="toggle-details">查看详细解析</button>
+                        
+                        <div class="more-details">
+                            <p><strong>详细回答</strong>：</p>
+                            <ul>
+                                <li><strong>按合同约定处理</strong>：若租赁合同中明确约定"承租人提前解除合同，需赔偿出租人免租期租金"（如"免租期1个月，若承租人租期未满1年提前解约，需支付1个月租金作为免租期赔偿"；或"承租人应按照已履行租赁期限和未履行租赁期限的比例，补交未履行租赁期限所对应的免租期的全部租金"），有约定从约定。</li>
+                                <li><strong>无约定时的处理</strong>：若合同未明确约定，法院通常会结合"免租期的商业逻辑"（免租期是出租人基于"承租人长期租赁"的让利，若承租人提前解约，出租人预期的长期收益落空）和公平原则综合判断：
+                                    <ul>
+                                        <li>支持赔偿的情况：承租人提前解约给出租人造成实际损失（如免租期内无租金收入，且房屋空置期产生租金损失），法院可能按"实际租赁时间与约定租赁期间的比例"折算免租期租金赔偿，例如：约定租期5年，免租期2个月，承租人仅租1年就解约，可能需赔偿"2个月×（1年/5年）=0.4个月租金"。</li>
+                                        <li>不支持赔偿的情况：承租人提前解约是因出租人违约（如未维修房屋导致无法使用），或约定租期较短（如仅1年，免租期10天），法院可能认为"免租期损失较小，或出租人无实际损失"，甚至以"无合同依据"为由不支持赔偿。</li>
+                                    </ul>
+                                </li>
+                            </ul>
+                            
+                            <div class="risk-tip">
+                                <strong>风险提示</strong>：为避免争议，建议在租赁合同中明确"提前解约是否需赔偿免租期租金"及具体计算方式；若承租人提前解约，及时收集损失证据，协商不成时通过法律途径主张，不要仅凭口头主张赔偿。
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                
+            </div>
+            
+        </div>
+    </div>
+
+    <script>
+        // 导航菜单点击事件
+        document.querySelectorAll('.nav-link').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                
+                // 移除所有active类
+                document.querySelectorAll('.nav-link').forEach(item => {
+                    item.classList.remove('active');
+                });
+                
+                // 添加active类到当前点击的链接
+                this.classList.add('active');
+                
+                // 滚动到对应部分
+                const targetId = this.getAttribute('href');
+                const targetSection = document.querySelector(targetId);
+                if (targetSection) {
+                    targetSection.scrollIntoView({ behavior: 'smooth' });
+                }
+            });
+        });
+        
+        // 问题标题点击事件
+        document.querySelectorAll('.question-header').forEach(header => {
+            header.addEventListener('click', function() {
+                const question = this.parentElement;
+                const answer = question.querySelector('.answer');
+                
+                // 切换active类
+                question.classList.toggle('active');
+                answer.classList.toggle('active');
+            });
+        });
+        
+        // 查看详细解析按钮点击事件
+        document.querySelectorAll('.toggle-details').forEach(button => {
+            button.addEventListener('click', function(e) {
+                e.stopPropagation(); // 防止事件冒泡
+                const details = this.nextElementSibling;
+                details.classList.toggle('active');
+                
+                // 更新按钮文本
+                if (details.classList.contains('active')) {
+                    this.textContent = '收起详细解析';
+                } else {
+                    this.textContent = '查看详细解析';
+                }
+            });
+        });
+        
+        // 滚动时更新导航菜单的active状态
+        window.addEventListener('scroll', function() {
+            const sections = document.querySelectorAll('.section');
+            const navLinks = document.querySelectorAll('.nav-link');
+            
+            let currentSection = '';
+            
+            sections.forEach(section => {
+                const sectionTop = section.offsetTop - 100;
+                const sectionHeight = section.clientHeight;
+                if (window.scrollY >= sectionTop && window.scrollY < sectionTop + sectionHeight) {
+                    currentSection = '#' + section.getAttribute('id');
+                }
+            });
+            
+            navLinks.forEach(link => {
+                link.classList.remove('active');
+                if (link.getAttribute('href') === currentSection) {
+                    link.classList.add('active');
+                }
+            });
+        });
+    </script>
+</body>
+</html>
